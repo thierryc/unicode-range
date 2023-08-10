@@ -24,7 +24,7 @@ import {
     flattenNestedArray, 
     getArrayIntersection,
     getMissingValues,
-} from './index';
+} from '@ap.cx/unicode-range';
 ```
 
 ## Functions

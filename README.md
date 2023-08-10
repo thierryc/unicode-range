@@ -26,10 +26,6 @@ import {
     getMissingValues,
 } from '@ap.cx/unicode-range';
 
-or
-
-import * as u from '@ap.cx/unicode-range';
-
 ```
 
 ## Functions
@@ -115,12 +111,11 @@ const array2 = [2, 4, 6, 8];
 const missingValues = getMissingValues(array1, array2);
 // Output: [1, 3, 5]
 
-
 ```
 
 ## Running Tests
 
-Make sure you have Jest installed, and run the tests:
+Make sure you have Jest installed, and run the test:
 
 ```bash
 npm test

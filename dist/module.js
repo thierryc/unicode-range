@@ -5,7 +5,7 @@
  * @license MIT
  * @author Thierry Charbonnel
  * 
- */ function $149c1bd638913645$export$d02631cccf789723(start, end) {
+ **/ function $149c1bd638913645$export$d02631cccf789723(start, end) {
     return Array.from({
         length: end - start + 1
     }, (_, index)=>start + index);

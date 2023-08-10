@@ -35,6 +35,14 @@ describe('compactRanges function', () => {
         expect(result).toEqual(expectedOutput);
     });
 
+    it('should generate sorted compact ranges', () => {
+        const input = [11, 3, 2, 7, 6, 8, 9, 1, 15];
+        const expectedOutput = [[1, 3], [6, 9], 11, 15];
+
+        const result = compactRanges(input);
+        expect(result).toEqual(expectedOutput);
+    });
+
     it('should handle single numbers', () => {
         const input = [5];
         const expectedOutput = [5];

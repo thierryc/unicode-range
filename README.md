@@ -28,7 +28,7 @@ import {
 
 or
 
-import * as unicodeRange from '@ap.cx/unicode-range';
+import * as u from '@ap.cx/unicode-range';
 
 ```
 

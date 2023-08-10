@@ -13,19 +13,20 @@ export function range(start: number, end: number): number[] {
 }
 
 export function compactRanges(arr: number[]): (number | [number, number])[] {
+    const sortedData = arr.slice().sort((a, b) => a - b);
     const result: (number | [number, number])[] = [];
-    let start = arr[0];
-    let end = arr[0];
-    for (let i = 1; i < arr.length; i++) {
-        if (arr[i] === end + 1) {
-            end = arr[i];
+    let start = sortedData[0];
+    let end = sortedData[0];
+    for (let i = 1; i < sortedData.length; i++) {
+        if (sortedData[i] === end + 1) {
+            end = sortedData[i];
         } else {
             if (start === end) {
                 result.push(start);
             } else {
                 result.push([start, end]);
             }
-            start = end = arr[i];
+            start = end = sortedData[i];
         }
     }
     if (start === end) {

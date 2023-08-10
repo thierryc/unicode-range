@@ -10,12 +10,13 @@ function range(start, end) {
     return Array.from({ length: end - start + 1 }, function (_, index) { return start + index; });
 }
 function compactRanges(arr) {
+    var sortedData = arr.slice().sort(function (a, b) { return a - b; });
     var result = [];
-    var start = arr[0];
-    var end = arr[0];
-    for (var i = 1; i < arr.length; i++) {
-        if (arr[i] === end + 1) {
-            end = arr[i];
+    var start = sortedData[0];
+    var end = sortedData[0];
+    for (var i = 1; i < sortedData.length; i++) {
+        if (sortedData[i] === end + 1) {
+            end = sortedData[i];
         }
         else {
             if (start === end) {
@@ -24,7 +25,7 @@ function compactRanges(arr) {
             else {
                 result.push([start, end]);
             }
-            start = end = arr[i];
+            start = end = sortedData[i];
         }
     }
     if (start === end) {

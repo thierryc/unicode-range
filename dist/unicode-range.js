@@ -13,14 +13,18 @@ Object.defineProperty(exports, '__esModule', { value: true });
 function range(start, end) {
     return Array.from({ length: end - start + 1 }, function (_, index) { return start + index; });
 }
-function compactRanges(arr) {
-    var sortedData = arr.slice().sort(function (a, b) { return a - b; });
+function compactRanges(numbers) {
+    if (numbers === void 0) { numbers = []; }
+    if (numbers.length === 0) {
+        return [];
+    }
+    var sortedNumbers = Array.from(new Set(numbers)).slice().sort(function (a, b) { return a - b; });
     var result = [];
-    var start = sortedData[0];
-    var end = sortedData[0];
-    for (var i = 1; i < sortedData.length; i++) {
-        if (sortedData[i] === end + 1) {
-            end = sortedData[i];
+    var start = sortedNumbers[0];
+    var end = sortedNumbers[0];
+    for (var i = 1; i < sortedNumbers.length; i++) {
+        if (sortedNumbers[i] === end + 1) {
+            end = sortedNumbers[i];
         }
         else {
             if (start === end) {
@@ -29,7 +33,7 @@ function compactRanges(arr) {
             else {
                 result.push([start, end]);
             }
-            start = end = sortedData[i];
+            start = end = sortedNumbers[i];
         }
     }
     if (start === end) {
@@ -41,6 +45,7 @@ function compactRanges(arr) {
     return result;
 }
 function convertToHexValues(compactRanges) {
+    if (compactRanges === void 0) { compactRanges = []; }
     function toHex(value) {
         return "0x".concat(value.toString(16).toUpperCase().padStart(4, '0'));
     }
@@ -54,15 +59,22 @@ function convertToHexValues(compactRanges) {
     });
 }
 function convertToUnicodeString(compactRanges) {
+    if (compactRanges === void 0) { compactRanges = []; }
     function toUnicode(value, prefix) {
         if (prefix === void 0) { prefix = 'U+'; }
         return "".concat(prefix).concat(value.toString(16).toUpperCase().padStart(4, '0'));
     }
     return compactRanges.map(function (item) {
         if (Array.isArray(item)) {
+            if (typeof item[0] !== 'number' || typeof item[1] !== 'number') {
+                throw new Error('Invalid Unicode range');
+            }
             return "".concat(toUnicode(item[0]), "-").concat(toUnicode(item[1], ''));
         }
         else {
+            if (typeof item !== 'number') {
+                throw new Error('Invalid Unicode value');
+            }
             return toUnicode(item);
         }
     }).join(', ');
@@ -71,7 +83,9 @@ function convertStringToCompactRanges(unicodeString) {
     var ranges = unicodeString.split(', ');
     function parseHex(hexString, s) {
         if (s === void 0) { s = 0; }
-        return hexString ? parseInt(hexString.slice(s), 16) : undefined;
+        if (!Number.isNaN(parseInt(hexString.slice(s), 16))) {
+            return parseInt(hexString.slice(s), 16);
+        }
     }
     return ranges.map(function (range) {
         var parts = range.split('-');
@@ -101,9 +115,13 @@ function flattenNestedArray(input) {
     return flattenedArray;
 }
 function getArrayIntersection(array1, array2) {
+    if (array1 === void 0) { array1 = []; }
+    if (array2 === void 0) { array2 = []; }
     return array1.filter(function (value) { return array2.includes(value); });
 }
 function getMissingValues(array1, array2) {
+    if (array1 === void 0) { array1 = []; }
+    if (array2 === void 0) { array2 = []; }
     return array1.filter(function (value) { return !array2.includes(value); });
 }
 

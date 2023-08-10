@@ -12,21 +12,24 @@ export function range(start: number, end: number): number[] {
     return Array.from({ length: end - start + 1 }, (_, index) => start + index);
 }
 
-export function compactRanges(arr: number[]): (number | [number, number])[] {
-    const sortedData = arr.slice().sort((a, b) => a - b);
+export function compactRanges(numbers: number[] = []): (number | [number, number])[] {
+    if (numbers.length === 0) {
+        return [];
+    }
+    const sortedNumbers = Array.from(new Set(numbers)).slice().sort((a, b) => a - b);
     const result: (number | [number, number])[] = [];
-    let start = sortedData[0];
-    let end = sortedData[0];
-    for (let i = 1; i < sortedData.length; i++) {
-        if (sortedData[i] === end + 1) {
-            end = sortedData[i];
+    let start = sortedNumbers[0];
+    let end = sortedNumbers[0];
+    for (let i = 1; i < sortedNumbers.length; i++) {
+        if (sortedNumbers[i] === end + 1) {
+            end = sortedNumbers[i];
         } else {
             if (start === end) {
                 result.push(start);
             } else {
                 result.push([start, end]);
             }
-            start = end = sortedData[i];
+            start = end = sortedNumbers[i];
         }
     }
     if (start === end) {
@@ -37,7 +40,7 @@ export function compactRanges(arr: number[]): (number | [number, number])[] {
     return result;
 }
 
-export function convertToHexValues(compactRanges: (number | [number, number])[]): (string | [string, string])[] {
+export function convertToHexValues(compactRanges: (number | [number, number])[] = []): (string | [string, string])[] {
     function toHex(value: number): string {
         return `0x${value.toString(16).toUpperCase().padStart(4, '0')}`;
     }
@@ -51,23 +54,31 @@ export function convertToHexValues(compactRanges: (number | [number, number])[])
 }
 
 
-export function convertToUnicodeString(compactRanges: (number | [number, number])[]): string {
+export function convertToUnicodeString(compactRanges: (number | [number, number])[] = []): string {
     function toUnicode(value: number, prefix: string = 'U+'): string {
         return `${prefix}${value.toString(16).toUpperCase().padStart(4, '0')}`;
     }
     return compactRanges.map(item => {
         if (Array.isArray(item)) {
+            if (typeof item[0] !== 'number' || typeof item[1] !== 'number') {
+                throw new Error('Invalid Unicode range');
+            }
             return `${toUnicode(item[0])}-${toUnicode(item[1], '')}`;
         } else {
+            if (typeof item !== 'number') {
+                throw new Error('Invalid Unicode value');
+            }
             return toUnicode(item);
         }
     }).join(', ');
 }
 
-export function convertStringToCompactRanges(unicodeString: string): (number | [number | undefined, number | undefined] | undefined)[] {
+export function convertStringToCompactRanges(unicodeString: string): (number | [number, number])[] {
     const ranges = unicodeString.split(', ');
-    function parseHex(hexString: string, s: number = 0): number | undefined {
-        return hexString ? parseInt(hexString.slice(s), 16) : undefined;
+    function parseHex(hexString: string, s: number = 0): number {
+        if (!Number.isNaN(parseInt(hexString.slice(s), 16))) {
+            return parseInt(hexString.slice(s), 16);
+        }
     }
     return ranges.map(range => {
         const parts = range.split('-');
@@ -96,10 +107,10 @@ export function flattenNestedArray(input: (number | [number, number])[]): number
     return flattenedArray;
 }
 
-export function getArrayIntersection(array1, array2) {
+export function getArrayIntersection(array1 = [], array2 = []): number[] {
     return array1.filter(value => array2.includes(value));
 }
 
-export function getMissingValues(array1, array2) {
+export function getMissingValues(array1 = [], array2 = []): number[] {
     return array1.filter(value => !array2.includes(value));
 }

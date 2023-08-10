@@ -7,29 +7,29 @@
  *
  **/
 declare function range(start: number, end: number): number[];
-declare function compactRanges(arr: number[]): (number | [
+declare function compactRanges(numbers?: number[]): (number | [
     number,
     number
 ])[];
-declare function convertToHexValues(compactRanges: (number | [
+declare function convertToHexValues(compactRanges?: (number | [
     number,
     number
 ])[]): (string | [
     string,
     string
 ])[];
-declare function convertToUnicodeString(compactRanges: (number | [
+declare function convertToUnicodeString(compactRanges?: (number | [
     number,
     number
 ])[]): string;
 declare function convertStringToCompactRanges(unicodeString: string): (number | [
-    number | undefined,
-    number | undefined
-] | undefined)[];
+    number,
+    number
+])[];
 declare function flattenNestedArray(input: (number | [
     number,
     number
 ])[]): number[];
-declare function getArrayIntersection(array1: any, array2: any): any;
-declare function getMissingValues(array1: any, array2: any): any;
+declare function getArrayIntersection(array1?: any[], array2?: any[]): number[];
+declare function getMissingValues(array1?: any[], array2?: any[]): number[];
 export { range, compactRanges, convertToHexValues, convertToUnicodeString, convertStringToCompactRanges, flattenNestedArray, getArrayIntersection, getMissingValues };

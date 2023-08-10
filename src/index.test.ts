@@ -51,6 +51,14 @@ describe('compactRanges function', () => {
         expect(result).toEqual(expectedOutput);
     });
 
+    it('should handle 2 equal numbers', () => {
+        const input = [5, 5, 5];
+        const expectedOutput = [5];
+
+        const result = compactRanges(input);
+        expect(result).toEqual(expectedOutput);
+    });
+
     it('should handle empty input array', () => {
         const input: number[] = [];
         const expectedOutput: (number | [number, number])[] = [];

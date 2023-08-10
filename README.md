@@ -25,6 +25,11 @@ import {
     getArrayIntersection,
     getMissingValues,
 } from '@ap.cx/unicode-range';
+
+or
+
+import * as unicodeRange from '@ap.cx/unicode-range';
+
 ```
 
 ## Functions

@@ -89,7 +89,7 @@ describe('convertToHexValues function', () => {
 describe('convertToUnicodeString function', () => {
     it('should convert compact ranges to Unicode string', () => {
         const compactRanges: (number | [number, number])[] = [[1, 3], [6, 9], 11, 15];
-        const expectedOutput = 'U+0001-0003, U+0006-0009, U+000B, U+000F';
+        const expectedOutput = 'U+0001-0004, U+0006-000A, U+000B, U+000F';
 
         const result = convertToUnicodeString(compactRanges);
         expect(result).toEqual(expectedOutput);

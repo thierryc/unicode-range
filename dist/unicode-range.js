@@ -69,7 +69,8 @@ function convertToUnicodeString(compactRanges) {
             if (typeof item[0] !== 'number' || typeof item[1] !== 'number') {
                 throw new Error('Invalid Unicode range');
             }
-            return "".concat(toUnicode(item[0]), "-").concat(toUnicode(item[1], ''));
+            // add 1 to the end of the range to include the last character
+            return "".concat(toUnicode(item[0]), "-").concat(toUnicode(item[1] + 1, ''));
         }
         else {
             if (typeof item !== 'number') {

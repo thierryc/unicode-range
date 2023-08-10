@@ -63,7 +63,8 @@ export function convertToUnicodeString(compactRanges: (number | [number, number]
             if (typeof item[0] !== 'number' || typeof item[1] !== 'number') {
                 throw new Error('Invalid Unicode range');
             }
-            return `${toUnicode(item[0])}-${toUnicode(item[1], '')}`;
+            // add 1 to the end of the range to include the last character
+            return `${toUnicode(item[0])}-${toUnicode(item[1] + 1, '')}`;
         } else {
             if (typeof item !== 'number') {
                 throw new Error('Invalid Unicode value');

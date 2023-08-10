@@ -1,6 +1,6 @@
 {
   "name": "@ap.cx/unicode-range",
-  "version": "1.2.0",
+  "version": "1.4.0",
   "description": "",
   "source": "src/index.ts",
   "main": "dist/unicode-range.js",

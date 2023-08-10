@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+      "declaration": true,         // Generate declaration files
+      "declarationDir": "dist",    // Output directory for declaration files
+      "outDir": "dist",            // Output directory for JavaScript files
+      "module": "CommonJS",        // Choose the appropriate module format
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules"]
+  }
